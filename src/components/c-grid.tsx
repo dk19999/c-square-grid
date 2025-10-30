@@ -1,8 +1,14 @@
 import { useCGrid } from "../hooks/useCGrid";
 import { Cell, type Color } from "./cell";
 
-export function CGrid({ n }: { n: number }) {
-  const [cells, handleClick] = useCGrid(n);
+export function CGrid({
+  n,
+  animationDelay,
+}: {
+  n: number;
+  animationDelay: number;
+}) {
+  const [cells, handleClick] = useCGrid(n, animationDelay);
 
   return (
     <div className="grid">

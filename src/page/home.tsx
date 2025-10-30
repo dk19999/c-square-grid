@@ -45,7 +45,7 @@ export function Home() {
         {error && <div className="error-message">{error}</div>}
       </form>
 
-      {!error && input && <CGrid n={+input} />}
+      {!error && input && <CGrid animationDelay={1000} n={+input} />}
     </main>
   );
 }

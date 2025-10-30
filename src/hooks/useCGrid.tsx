@@ -12,14 +12,13 @@ function buildC(n: number): string[][] {
   return cells;
 }
 
-export function useCGrid(n: number) {
+export function useCGrid(n: number, animationDelay: number = 1000) {
   const [cells, setCells] = useState<string[][]>([]);
   const [inTransition, setInTransition] = useState(false);
   const [order, setOrder] = useState<{ ci: number; ri: number }[]>([]);
 
   const timeoutRefs = useRef<number[]>([]);
   const resetDelay = 1000;
-  const animationDelay = 1000;
 
   const areAllCellsColor = useCallback(
     (color: string) => {
@@ -58,6 +57,12 @@ export function useCGrid(n: number) {
     }, resetDelay);
 
     timeoutRefs.current.push(startTimeout);
+
+    return () => {
+      timeoutRefs.current.forEach(timeout => clearTimeout(timeout));
+      timeoutRefs.current = [];
+    };
+
   }, [cells]);
 
   const updateCell = (rowIndex: number, columnIndex: number, color: string) => {
